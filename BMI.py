@@ -1,14 +1,24 @@
 import tkinter as tk
+from tkinter import messagebox
 
 def calculate_bmi():
     #BMI formula is: Weight(kg) / (height(m)^2)
-    weight = float(weight_entry.get())
-    height_in_cm = float(height_entry.get()) / 100
-    height_squared = height_in_cm ** 2
+    
+    try:
+        weight = float(weight_entry.get())
+        height_in_meter = float(height_entry.get()) / 100
+
+        if weight <=0 or height_in_meter <= 0:
+            raise ValueError("Please enter positive values for weight and height.")
+        if height_in_meter < 0.3:
+            raise ValueError("Please enter your height in centimeters instead of meters.")
+    except ValueError as e:
+        messagebox.showerror("Error", str(e))
+        return
+
+    height_squared = height_in_meter ** 2
     bmi = weight / height_squared
-
     result_label.config(text=f'Your BMI: {bmi: .2f}')
-
 
 #Create the main window
 window = tk.Tk()
