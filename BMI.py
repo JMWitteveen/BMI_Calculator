@@ -3,7 +3,6 @@ from tkinter import messagebox
 
 def calculate_bmi():
     #BMI formula is: Weight(kg) / (height(m)^2)
-    
     try:
         weight = float(weight_entry.get())
         height_in_meter = float(height_entry.get()) / 100
@@ -46,22 +45,35 @@ def set_result_label_color(color_index):
 window = tk.Tk()
 window.title('BMI Calculator')
 
-#add weight label and input field
-tk.Label(window, text="Weight (kg): ").grid(row=0, column=0, padx=10, pady=10)
-weight_entry = tk.Entry(window)
-weight_entry.grid(row=0, column=1, padx=10, pady=10)
+#create a frame for the input fields
+input_frame = tk.Frame(window)
+input_frame.grid(row=0, column=0, padx=10, pady=10)
 
-#add height label and input field
-tk.Label(window, text="Height (cm): ").grid(row=1, column=0, padx=10, pady=10)
-height_entry = tk.Entry(window)
-height_entry.grid(row=1, column=1, padx=10, pady=10)
+#add weight label and input field to the input frame
+tk.Label(input_frame, text="Weight (kg): ").grid(row=0, column=0)
+weight_entry = tk.Entry(input_frame)
+weight_entry.grid(row=0, column=1)
 
-#add the button to calculate the BMI
-calculate_button = tk.Button(window, text="Calculate BMI", command=calculate_bmi)
-calculate_button.grid(row=2, column=0, padx=10, pady=10)
+#add height label and input field to the input frame
+tk.Label(input_frame, text="Height (cm): ").grid(row=1, column=0)
+height_entry = tk.Entry(input_frame)
+height_entry.grid(row=1, column=1)
 
-result_label = tk.Label(window, text="")
-result_label.grid(row=3, column=0, padx=10, pady=10)
+#create a frame for the calculate button
+button_frame = tk.Frame(window)
+button_frame.grid(row=1, column=0, pady=10)
 
-#This starts the actual GUI
+#add the button to calculate the BMI to the button frame
+calculate_button = tk.Button(button_frame, text="Calculate BMI", command=calculate_bmi)
+calculate_button.grid(row=2, column=0)
+
+#create a frame for the result label
+result_frame = tk.Frame(window)
+result_frame.grid(row=2, column=0, pady=10)
+
+#add the result label to the result frame
+result_label = tk.Label(result_frame, text="", font=('Helvetica', 10, 'bold'))
+result_label.grid(row=0, column=0)
+
+#this starts the actual GUI
 window.mainloop()
