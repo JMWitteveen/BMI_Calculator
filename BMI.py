@@ -18,7 +18,29 @@ def calculate_bmi():
 
     height_squared = height_in_meter ** 2
     bmi = weight / height_squared
-    result_label.config(text=f'Your BMI: {bmi: .2f}')
+    bmi_category, color_index = get_bmi_category(bmi)
+    set_result_label_color(color_index)
+    
+    result_text = f'Your BMI: {bmi: .2f}\nBMI Category: {bmi_category}'
+    result_label.config(text=result_text)
+    #result_label.config(text=f'Your BMI: {bmi: .2f}')
+
+def get_bmi_category(bmi):
+    if bmi < 18.5:
+        return "Underweight", 0
+    elif 18.5 <= bmi < 25:
+        return "Normal weight", 1
+    elif 25 <= bmi < 30:
+        return "Overweight", 2
+    else:
+        return "Obese", 3
+
+def set_result_label_color(color_index):
+    # Define a list of colors corresponding to the color_index
+    color_list = ['blue', 'green', 'orange', 'red']
+
+    if 0 <= color_index < len(color_list):
+        result_label.config(fg=color_list[color_index])
 
 #Create the main window
 window = tk.Tk()
