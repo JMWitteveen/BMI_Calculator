@@ -58,6 +58,8 @@ def update_unit_labels(*args):
         weight_label.config(text="Weight in lbs: ")
         height_label.config(text="Height in Inches")
         
+def quit_application():
+    window.destroy()
 
 #Create the main window
 window = tk.Tk()
@@ -102,6 +104,9 @@ calculate_button.grid(row=0, column=0, padx=5)
 
 clear_button = ttk.Button(button_frame, text="Clear", command=clear_fields)
 clear_button.grid(row=0, column=1, padx=5)
+
+quit_button = ttk.Button(button_frame, text="Quit", command=quit_application)
+quit_button.grid(row=0, column=2, padx=5)
 
 #create a frame for the result label
 result_frame = tk.Frame(window)
