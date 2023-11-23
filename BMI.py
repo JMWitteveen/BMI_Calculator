@@ -52,6 +52,13 @@ def clear_fields():
     height_entry.delete(0, tk.END)
     result_label.config(text="")
 
+def update_unit_labels(*args):
+    selected_unit = unit_combobox.get()
+    if selected_unit == 'Imperial':
+        weight_label.config(text="Weight in lbs: ")
+        height_label.config(text="Height in Inches")
+        
+
 #Create the main window
 window = tk.Tk()
 window.title('BMI Calculator')
@@ -68,12 +75,14 @@ input_frame = tk.Frame(window)
 input_frame.grid(row=1, column=0, padx=10, pady=10)
 
 #add weight label and input field to the input frame
-tk.Label(input_frame, text="Weight: ").grid(row=0, column=0, pady=5, sticky='w')
+weight_label = tk.Label(input_frame, text="Weight in kg: ")
+weight_label.grid(row=0, column=0, pady=5, sticky='w')
 weight_entry = tk.Entry(input_frame)
 weight_entry.grid(row=0, column=1, pady=5)
 
 #add height label and input field to the input frame
-tk.Label(input_frame, text="Height: ").grid(row=1, column=0, pady=5, sticky='w')
+height_label = tk.Label(input_frame, text="Height: ")
+height_label.grid(row=1, column=0, pady=5, sticky='w')
 height_entry = tk.Entry(input_frame)
 height_entry.grid(row=1, column=1, pady=5)
 
@@ -81,6 +90,7 @@ tk.Label(input_frame, text="Unit: ").grid(row=2, column=0, pady=5, sticky='w')
 unit_combobox = ttk.Combobox(input_frame, values=['Metric', 'Imperial'], width=17, state='readonly')
 unit_combobox.set('Metric') #set default option
 unit_combobox.grid(row=2, column=1, pady=5)
+unit_combobox.bind("<<ComboboxSelected>>", update_unit_labels)
 
 #create a frame for the calculate button
 button_frame = tk.Frame(window)
